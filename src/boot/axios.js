@@ -9,7 +9,7 @@ import axios from 'axios'
 // for each client)
 const api = axios.create({
   withCredentials: true,
-  baseURL: 'https://qpon-api-laravel-m587c.ondigitalocean.app/'
+  baseURL: 'https://qpon-api-laravel-m587c.ondigitalocean.app/app/'
 });
 
 export default boot(({ app }) => {
