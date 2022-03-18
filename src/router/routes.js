@@ -3,6 +3,7 @@ import Coupons from "../components/pages/coupons/Coupons.vue";
 import ExportCoupons from "../components/pages/exports/ExportCoupons.vue";
 import Index from '../components/pages/Index.vue';
 import Login from '../components/pages/Login.vue';
+import UserInfo from '../components/pages/user/UserInfo.vue';
 
 const routes = [
   {
@@ -32,6 +33,11 @@ const routes = [
         path: "/export-coupons",
         name: "export-coupons",
         component: ExportCoupons
+      },
+      {
+        path: "/user",
+        name: "user",
+        component: UserInfo
       },
     ]
   },

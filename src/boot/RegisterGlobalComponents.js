@@ -2,6 +2,7 @@ import { boot } from 'quasar/wrappers'
 import DateInput from 'components/ui/DateInput.vue';
 import PageHeader from 'components/layout/PageHeader.vue';
 import Container from 'components/layout/Container.vue';
+import BaseSpinner from 'components/layout/BaseSpinner.vue';
 import Login from 'components/pages/Login.vue';
 
 // "async" is optional;
@@ -13,4 +14,5 @@ export default boot(({ app }) => {
   app.component('page-header', PageHeader);
   app.component('container', Container);
   app.component('login', Login);
+  app.component('base-spinner', BaseSpinner);
 })

@@ -5,6 +5,8 @@
     @update:modelValue="updateDate"
     mask="##-##-####"
     :label="label !== '' ? label : ''"
+    :error-message="errorMessage"
+    :error="hasError"
   >
     <template v-slot:prepend>
       <q-icon name="event" class="cursor-pointer">
@@ -36,7 +38,28 @@ import { date } from "quasar";
 import { ref } from 'vue';
 
 export default {
-  props: ["couponsDate", "label"],
+  props: {
+    label: {
+      type: String,
+      required: false,
+      default: "",
+    },
+    errorMessage: {
+      type: String,
+      required: false,
+      default: "",
+    },
+    hasError: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
+    couponsDate: {
+      type: Object,
+      required: true,
+      default: null,
+    },
+  },
   emits: ["update:modelValue"],
   setup(props, { emit }) {
     //today - date Object

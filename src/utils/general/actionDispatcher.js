@@ -63,8 +63,6 @@ export default function useActionDispatcher() {
     let foundValidationInput = false;
     let form = formSchema.value;
 
-    console.log(validationErrors);
-
     //loop through the form schema and check if a field exists in validation errors
     for (const field in form) {
       formSchema.value[field].hasError = false;

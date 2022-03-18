@@ -2,7 +2,7 @@
   "name": "quasar-coupon",
   "version": "0.0.1",
   "description": "managing coupons online",
-  "productName": "E-Coupon",
+  "productName": "Qpon",
   "author": "wolfmanpg <wolfmanp91@gmail.com>",
   "private": true,
   "scripts": {

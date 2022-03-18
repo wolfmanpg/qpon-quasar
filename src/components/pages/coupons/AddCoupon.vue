@@ -6,7 +6,11 @@
       <div class="col-xs-12 col-md-6 q-pl-md">
         <q-form @submit="saveCoupon" class="q-gutter-md">
           <!-- date field -->
-          <date-input v-model="couponsDate"></date-input>
+          <date-input
+          v-model="couponsDate"
+          :errorMessage="formSchema.couponsDate.errorMessage"
+          :hasError="formSchema.couponsDate.hasError"
+          ></date-input>
 
           <!-- coupon number field -->
           <q-input

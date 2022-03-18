@@ -17,4 +17,14 @@ export default {
 
       context.commit('setIsLoggedIn', true);
     },
+    async logout(context) {
+
+      const onSuccess = (responseMsg) => {
+        notifier.successNotify('Logged out successfully');
+      }
+
+      await axiosCall('post', '/logout');
+
+      context.commit('setIsLoggedIn', false);
+    },
 };

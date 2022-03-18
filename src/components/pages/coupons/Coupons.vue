@@ -1,5 +1,5 @@
 <template>
-  <container>
+  <container :isLoading="isLoading" :hasError="loadingFailed">
     <page-header>All Coupons</page-header>
 
     <div class="q-mb-lg">
