@@ -9,8 +9,8 @@ import axios from 'axios'
 // for each client)
 const api = axios.create({
   withCredentials: true,
-  baseURL: 'http://qpon.test',
-  //baseURL: 'https://equponi.info/app/'
+  //baseURL: 'http://qpon.test',
+  baseURL: 'https://equponi.info/app/'
 });
 
 export default boot(({ app }) => {
