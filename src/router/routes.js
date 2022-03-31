@@ -5,13 +5,10 @@ import Index from '../components/pages/Index.vue';
 import Login from '../components/pages/Login.vue';
 import UserInfo from '../components/pages/user/UserInfo.vue';
 
-const routes = [
-  {
-    path: '/',
-    component: () => import('src/components/layout/MainLayout.vue'),
-    children: [
+  const routes = [
       {
-        path: "",
+        path: "/",
+        name: "index",
         component: Index
       },
       {
@@ -39,15 +36,12 @@ const routes = [
         name: "user",
         component: UserInfo
       },
-    ]
-  },
+      {
+        path: '/:catchAll(.*)*',
+        component: () => import('src/components/pages/Error404.vue')
+      }
 
-  // Always leave this as last one,
-  // but you can also remove it
-  {
-    path: '/:catchAll(.*)*',
-    component: () => import('src/components/pages/Error404.vue')
-  }
-]
+    ];
+
 
 export default routes

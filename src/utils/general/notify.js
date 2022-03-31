@@ -1,28 +1,36 @@
 import { Notify } from 'quasar';
 
-const successNotify = (message, position = 'bottom', color = 'green') => {
+const showNotification = (message, position, color, textColor = 'white') => {
   Notify.create({
     position,
     message,
     color: color,
     actions: [
-      { label: 'Dismiss', color: 'white'}
+      { label: 'Dismiss', color: textColor}
     ],
+    textColor
   });
 }
 
-const errorNotify = (message, position = 'bottom', color = 'red') => {
-  Notify.create({
-    position,
-    message,
-    color: color,
-    actions: [
-      { label: 'Dismiss', color: 'white'}
-    ],
-  });
+const customNotify = (message, position = 'bottom', color = 'green', textColor = 'white') => {
+  showNotification(message, position, color, textColor);
+}
+
+
+const successNotify = (message) => {
+  showNotification(message, 'bottom', 'green');
+}
+
+const errorNotify = (message) => {
+  showNotification(message, 'bottom', 'red');
+}
+
+const warningNotify = (message) => {
+  showNotification(message, 'bottom', 'yellow', 'black');
 }
 
 export default {
   successNotify,
-  errorNotify
+  errorNotify,
+  warningNotify
 }

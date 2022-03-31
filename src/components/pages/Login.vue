@@ -6,7 +6,7 @@
     </q-toolbar>
   </q-header>
 
-  <container class="q-mt-xl">
+  <container class="q-mt-xl" :isLoading="loggingIn">
 
     <div class="row justify-center">
       <div class="col-xs-10 col-sm-9 col-md-5">
@@ -65,14 +65,17 @@
 <script>
 import { ref } from "vue";
 import { useStore } from "vuex";
+import { useRouter } from "vue-router";
 import useActionDispatcher from "../../utils/general/actionDispatcher.js";
 
 export default {
   setup() {
     const $store = useStore();
+    const $router = useRouter();
 
     const email = ref("");
     const password = ref("");
+    const loggingIn = ref(false);
 
     let { dispatchAction, formSchema } = useActionDispatcher();
 
@@ -98,15 +101,23 @@ export default {
       formSchema,
       email,
       password,
+      loggingIn,
 
       login() {
+        loggingIn.value = true;
 
         const data = {
           email: email.value,
           password: password.value
         }
 
-        dispatchAction('auth/login', data)
+        const onSuccess = () => {
+          $router.replace('/');
+        }
+
+        dispatchAction('auth/login', data, onSuccess);
+
+        loggingIn.value = false;
       },
     };
   },

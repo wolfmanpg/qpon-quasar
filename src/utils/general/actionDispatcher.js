@@ -1,9 +1,11 @@
 import notifier from "./notify";
 import { useStore } from "vuex";
 import { ref } from "vue";
+import { useRouter } from "vue-router";
 
 export default function useActionDispatcher() {
   const $store = useStore();
+  const $router = useRouter();
 
   const formSchema = ref({});
 
@@ -34,13 +36,18 @@ export default function useActionDispatcher() {
   const handleServerError = (serverErrorObject) => {
     let errorObject = JSON.parse(serverErrorObject);
 
-    console.log(errorObject);
-
     //check if it's a validation error
     if (errorObject.status === 422) {
       handleValidationErrors(errorObject.validationErrors);
       return;
     }
+
+    if (errorObject.status === 401){
+      notifier.warningNotify('Session expired, please login again');
+      $store.dispatch('auth/expireSession');
+      $router.replace('/login');
+    }
+
 
     //from this point forward, is not a validation error
     let errorMessage;

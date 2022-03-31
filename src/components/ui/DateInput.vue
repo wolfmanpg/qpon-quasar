@@ -56,7 +56,7 @@ export default {
     },
     couponsDate: {
       type: Object,
-      required: true,
+      required: false,
       default: null,
     },
   },
