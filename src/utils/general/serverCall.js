@@ -44,9 +44,7 @@ export default function useServerCall() {
         .post(url, data)
         .then((response) => {
           if (onSuccess !== null) {
-            console.log('calling on success now');
             onSuccess(response.data);
-            console.log('FINISH on success now');
           }
         })
         .catch((error) => {

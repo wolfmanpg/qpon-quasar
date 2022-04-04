@@ -6,7 +6,10 @@ export default {
 
       return state.isLoggedIn || (localStorage.getItem('loginState') && parseInt(localStorage.getItem('loginState')) === 1);
     },
-    getLoggedInUser(state){
+    getUserInfo(state){
         return state.user;
+    },
+    shouldLoadUserInfo(state){
+        return state.shouldLoadUserInfo;
     },
 }

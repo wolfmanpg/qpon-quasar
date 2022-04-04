@@ -24,6 +24,18 @@ export default {
 
     await axiosCall("post", "/logout", {} , onSuccess);
   },
+  //load current saved coupon entries
+  async loadUserInfo(context) {
+      if (!context.getters.shouldLoadUserInfo) {
+          return;
+      }
+
+      const onSuccess = (data) => {
+          context.commit('setUserInfo', data);
+      }
+
+      await axiosCall('get', '/api/user', {}, onSuccess);
+  },
   async expireSession(context) {
       //set logout state
       context.commit("setIsLoggedIn", false);

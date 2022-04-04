@@ -14,7 +14,8 @@ export default function useActionDispatcher() {
     name,
     data = null,
     onSuccess = null,
-    onError = null
+    onError = null,
+    onFinally = null,
   ) => {
     $store
       .dispatch(name, data)
@@ -28,6 +29,11 @@ export default function useActionDispatcher() {
 
         if (onError !== null) {
           onError(error);
+        }
+      })
+      .finally( () => {
+        if (onFinally !== null) {
+          onFinally();
         }
       });
   };

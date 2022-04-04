@@ -26,7 +26,7 @@
                 <q-icon color="primary" name="feed" />
               </q-item-section>
               <q-item-section>
-                <q-item-label>User Info</q-item-label>
+                <q-item-label>My Profile</q-item-label>
               </q-item-section>
             </q-item>
 
@@ -56,10 +56,10 @@
 <script>
 import LinksList from "./components/nav/LinksList.vue";
 
-import { defineComponent, ref, computed } from "vue";
+import { defineComponent, ref, computed, watch } from "vue";
 import { useStore } from "vuex";
 import useActionDispatcher from "./utils/general/actionDispatcher.js";
-import { useRouter } from "vue-router";
+import { useRouter, useRoute } from "vue-router";
 
 export default defineComponent({
   components: {
@@ -68,10 +68,18 @@ export default defineComponent({
   setup() {
     const leftDrawerOpen = ref(false);
     const $store = useStore();
+    const $route = useRoute();
     const $router = useRouter();
+    const checkAuth = ref($store.getters["auth/getIsLoggedIn"]);
+
+    watch($route, (from, to) => {
+      if (to.path === '/'){
+        checkAuth.value = $store.getters["auth/getIsLoggedIn"];
+      }
+    });
 
     const isLoggedIn = computed(() => {
-      return $store.getters["auth/getIsLoggedIn"];
+      return checkAuth.value;
     });
 
     let { dispatchAction } = useActionDispatcher();
@@ -79,6 +87,7 @@ export default defineComponent({
     return {
       leftDrawerOpen,
       isLoggedIn,
+      checkAuth,
 
       toggleLeftDrawer() {
         leftDrawerOpen.value = !leftDrawerOpen.value;
@@ -91,6 +100,7 @@ export default defineComponent({
       logout() {
         const onSuccess = () => {
           $router.replace("/login");
+          checkAuth.value = $store.getters["auth/getIsLoggedIn"];
         };
 
         dispatchAction("auth/logout", {}, onSuccess);

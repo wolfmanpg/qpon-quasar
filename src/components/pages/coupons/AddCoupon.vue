@@ -28,7 +28,7 @@
           </q-input>
 
           <!-- save buttons -->
-          <div class="row justify-center">
+          <div class="row justify-center" v-if="!storeProcessing">
             <q-btn
               label="Save Coupon"
               type="submit"
@@ -46,6 +46,9 @@
               padding="0.81rem"
               :disable="couponsArray.length <= 0"
             />
+          </div>
+          <div class="row justify-center" v-else>
+            <base-spinner></base-spinner>
           </div>
         </q-form>
       </div>
@@ -104,6 +107,24 @@ export default {
     const couponsDate = ref(date.formatDate(Date.now(), "DD-MM-YYYY"));
     const couponsArray = ref([]);
     const availableCouponNumbers = ref([]);
+    const storeProcessing = ref(false);
+
+    //initialize date
+    const initDate = () => {
+      const now = Date.now();
+
+      const currentDay = parseInt(date.formatDate(now, "d"));
+
+      if (currentDay === 6 || currentDay === 7){
+        couponsDate.value = null;
+      }
+      else{
+        couponsDate.value = date.formatDate(now, "DD-MM-YYYY");
+      }
+
+    }
+
+    initDate();
 
     //reset coupons number and current,saved coupon numbers when date changes
     watch(couponsDate, (currentValue, oldValue) => {
@@ -205,6 +226,7 @@ export default {
       isLoading,
       loadingFailed,
       formSchema,
+      storeProcessing,
 
       saveCoupon() {
         const enteredCoupon = parseInt(couponNumber.value);
@@ -213,7 +235,10 @@ export default {
         couponNumber.value = "";
       },
       async saveAll() {
-        const onSuccess = () => {
+        storeProcessing.value = true;
+
+        const onFinish = () => {
+          storeProcessing.value = false;
           resetInputs();
         };
 
@@ -223,7 +248,8 @@ export default {
             date: couponsDate.value,
             coupons: couponsArray.value.join(","),
           },
-          onSuccess
+          onFinish,
+          onFinish
         );
       },
       resetData() {
