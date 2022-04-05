@@ -9,7 +9,7 @@
   <container class="q-mt-xl" :isLoading="loginProcessing" :hasError="false">
 
     <div class="row justify-center">
-      <div class="col-xs-10 col-sm-9 col-md-5">
+      <div class="col-xs-11 col-sm-9 col-md-5">
         <q-card class="q-pa-lg">
           <page-header>Login</page-header>
 

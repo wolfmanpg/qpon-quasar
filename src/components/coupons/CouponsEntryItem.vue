@@ -20,7 +20,7 @@
       </div>
 
       <div class="row q-ml-lg">
-        <div class="col-xs-12" v-show="!isDateToday">
+        <div class="col-xs-12">
           <span class="coupons-header q-mb-md"
             >{{ couponsHeaderText }}</span
           >
@@ -98,7 +98,7 @@ export default {
       let date = props.date;
 
       if (isDateToday.value){
-        return 'Today - ' + date + ' - Coupons Total Number : ' + props.coupons.length;
+        return 'Today - ' + date;
       }
 
       return date;
@@ -108,13 +108,7 @@ export default {
     const couponsHeaderText = computed(() => {
       let couponsTotal = props.coupons.length;
 
-      let text = 'Coupons ( total : ' + couponsTotal + ' )';
-
-      if (isDateToday.value){
-        return '';
-      }
-
-      return text;
+      return 'Coupons ( total : ' + couponsTotal + ' )';
     });
 
 
@@ -196,5 +190,12 @@ export default {
 
 .today-card-bg{
   background: var(--q-secondary) !important;
+}
+
+@media only screen and (max-width: 768px){
+  .today-card-bg .date-header{
+    font-size: 1.15rem;
+    padding-bottom: 0.45rem;
+  }
 }
 </style>
