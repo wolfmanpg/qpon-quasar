@@ -2,21 +2,27 @@
   <container>
     <page-header>Export Monthly Coupons</page-header>
 
-    <div class="flex justify-center">
-      <div class="column">
-        <p>
-          Selected Month : <b>{{ currentMonthInfoText }}</b>
-        </p>
+    <div class="column">
 
-        <month-picker
-          :default-month="defaultMonth"
-          :show-year="false"
-          :max-date="maxDate"
-          @input="setSelectedMonth"
-          @change="setDefaultMonth"
-        >
-        </month-picker>
+      <div class="col-xs-12">
+        <div class="flex justify-center q-mt-lg">
+          <p>
+            Selected Month : <b>{{ currentMonthInfoText }}</b>
+          </p>
+        </div>
+        <div class="flex justify-center q-mt-lg">
+          <month-picker
+            :default-month="defaultMonth"
+            :show-year="false"
+            :max-date="maxDate"
+            @input="setSelectedMonth"
+            @change="setDefaultMonth"
+          >
+          </month-picker>
+        </div>
+      </div>
 
+      <div class="col-xs-12">
         <div class="flex justify-center q-mt-lg">
           <q-btn
             label="Export"
@@ -69,27 +75,25 @@ export default {
 
       async downloadExport() {
         await api
-          .get("/api/exports/monthly-coupons",
-          {
-            params: {month: parseInt(selectedMonthIndex.value)},
+          .get("/api/exports/monthly-coupons", {
+            params: { month: parseInt(selectedMonthIndex.value) },
             responseType: "blob",
           })
           .then((response) => {
             // Let's create a link in the document that we'll
             // programmatically 'click'.
-            const link = document.createElement('a');
+            const link = document.createElement("a");
 
             // Tell the browser to associate the response data to
             // the URL of the link we created above.
-            link.href = window.URL.createObjectURL(
-                new Blob([response.data])
-            );
+            link.href = window.URL.createObjectURL(new Blob([response.data]));
 
             //report name
-            const reportName = selectedMonthText.value + '_' + new Date().getFullYear();
+            const reportName =
+              selectedMonthText.value + "_" + new Date().getFullYear();
 
             // Tell the browser to download, not render, the file.
-            link.setAttribute('download', reportName + '.xlsx');
+            link.setAttribute("download", reportName + ".xlsx");
 
             // Place the link in the DOM.
             document.body.appendChild(link);
@@ -98,8 +102,9 @@ export default {
             link.click();
 
             document.body.removeChild(link);
-          }).catch((error) => {
-              handleServerError(error);
+          })
+          .catch((error) => {
+            handleServerError(error);
           });
       },
 
@@ -117,6 +122,10 @@ export default {
 </script>
 
 <style>
+.month-picker__container {
+  width: 90vh !important;
+}
+
 .month-picker__month.selected,
 .month-picker__month.selected-range-first,
 .month-picker__month.selected-range-second {
