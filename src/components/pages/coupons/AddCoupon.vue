@@ -10,6 +10,7 @@
           v-model="couponsDate"
           :errorMessage="formSchema.couponsDate.errorMessage"
           :hasError="formSchema.couponsDate.hasError"
+          :rules="[formSchema.couponsDate.validate]"
           ></date-input>
 
           <!-- coupon number field -->
@@ -109,6 +110,10 @@ export default {
     const availableCouponNumbers = ref([]);
     const storeProcessing = ref(false);
 
+    let { dispatchAction, formSchema } = useActionDispatcher();
+    let { loadCoupons, currentCouponData, isLoading, loadingFailed } = useCouponLoader();
+    let { validateNumber, validateDate } = useCouponsValidator();
+
     //initialize date
     const initDate = () => {
       const now = Date.now();
@@ -121,20 +126,10 @@ export default {
       else{
         couponsDate.value = date.formatDate(now, "DD-MM-YYYY");
       }
-
     }
 
+    //initialize date, check if it's Saturday or Sunday
     initDate();
-
-    //reset coupons number and current,saved coupon numbers when date changes
-    watch(couponsDate, (currentValue, oldValue) => {
-          couponsArray.value = [];
-          couponNumber.value = '';
-    });
-
-    let { dispatchAction, formSchema } = useActionDispatcher();
-    let { loadCoupons, currentCouponData, isLoading, loadingFailed } = useCouponLoader();
-    let { validateNumber, validateDate } = useCouponsValidator();
 
     //function for loading coupons info
     const loadCouponsInfo = async () => {

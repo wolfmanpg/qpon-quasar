@@ -73,7 +73,7 @@ export default defineComponent({
     const checkAuth = ref($store.getters["auth/getIsLoggedIn"]);
 
     watch($route, (from, to) => {
-      if (to.path === '/'){
+      if (to.path === '/' || to.path === '/login'){
         checkAuth.value = $store.getters["auth/getIsLoggedIn"];
       }
     });

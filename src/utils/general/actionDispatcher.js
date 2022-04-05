@@ -52,8 +52,8 @@ export default function useActionDispatcher() {
       notifier.warningNotify('Session expired, please login again');
       $store.dispatch('auth/expireSession');
       $router.replace('/login');
+      return;
     }
-
 
     //from this point forward, is not a validation error
     let errorMessage;

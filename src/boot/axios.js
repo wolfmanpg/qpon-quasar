@@ -7,10 +7,14 @@ import axios from 'axios'
 // good idea to move this instance creation inside of the
 // "export default () => {}" function below (which runs individually
 // for each client)
+
+const baseUrl = window.location.host.includes('qpon.test')
+? 'http://qpon.test'
+: 'https://equponi.info/app/';
+
 const api = axios.create({
   withCredentials: true,
-  //baseURL: 'http://qpon.test',
-  baseURL: 'https://equponi.info/app/'
+  baseURL: baseUrl
 });
 
 export default boot(({ app }) => {

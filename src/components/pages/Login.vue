@@ -89,7 +89,7 @@ export default {
         errorMessage: "",
       },
       password: {
-        validate: function () {
+        validate: function (val) {
           return true;
         },
         hasError: false,
@@ -112,11 +112,14 @@ export default {
         }
 
         const onSuccess = () => {
-          loginProcessing.value = false;
           $router.replace('/');
         }
 
-        dispatchAction('auth/login', data, onSuccess);
+        const onFinally = () => {
+          loginProcessing.value = false;
+        }
+
+        dispatchAction('auth/login', data, onSuccess, null, onFinally);
       },
     };
   },
