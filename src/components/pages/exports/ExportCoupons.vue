@@ -123,7 +123,7 @@ export default {
 
 <style>
 .month-picker__container {
-  width: 90vh !important;
+  width: 90vw !important;
 }
 
 .month-picker__month.selected,

@@ -25,7 +25,7 @@
             >{{ couponsHeaderText }}</span
           >
         </div>
-        <div class="col-xs-8 col-sm-8 col-md-5 col-lg-4">
+        <div class="col-xs-10 col-sm-7 col-md-6 col-lg-4">
           <q-input
             label="Filter by coupon number"
             v-model.trim="filteredCoupon"

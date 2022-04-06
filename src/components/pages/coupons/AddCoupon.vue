@@ -22,6 +22,7 @@
             :rules="[formSchema.couponNumber.validate]"
             :error-message="formSchema.couponNumber.errorMessage"
             :error="formSchema.couponNumber.hasError"
+            ref="couponNumberInput"
           >
             <template v-slot:prepend>
               <q-icon name="pin" />
@@ -93,7 +94,7 @@
 
 <script>
 import { date, useQuasar } from "quasar";
-import { watch, ref } from "vue";
+import { ref } from "vue";
 import { useStore } from "vuex";
 import { onBeforeRouteLeave } from "vue-router";
 import useCouponsValidator from "../../../utils/coupons/couponsValidator";
@@ -109,6 +110,7 @@ export default {
     const couponsArray = ref([]);
     const availableCouponNumbers = ref([]);
     const storeProcessing = ref(false);
+    const couponNumberInput = ref(null);
 
     let { dispatchAction, formSchema } = useActionDispatcher();
     let { loadCoupons, currentCouponData, isLoading, loadingFailed } = useCouponLoader();
@@ -222,12 +224,15 @@ export default {
       loadingFailed,
       formSchema,
       storeProcessing,
+      couponNumberInput,
 
       saveCoupon() {
         const enteredCoupon = parseInt(couponNumber.value);
 
         couponsArray.value.push(enteredCoupon);
         couponNumber.value = "";
+
+        couponNumberInput.value.focus();
       },
       async saveAll() {
         storeProcessing.value = true;
